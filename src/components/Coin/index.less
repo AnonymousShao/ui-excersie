@@ -1,0 +1,360 @@
+.coinContainer{
+  @background-color: #221334;
+  @hover-border-color: #00D7D7;
+  @loading-bg: #fff;
+  @loading-content-bg: #ebebeb;
+  // .circle(@border, @color-in, @color-out){
+  //   width: @border;
+  //   height: @border;
+  //   border-radius: 50%;
+  //   transform: scale(0.5);
+  //   background-image: radial-gradient(
+  //     @color-in 0px,
+  //     @color-in 8px,
+  //     @background-color 8px,
+  //     @background-color 12px,
+  //     @color-in 12px,
+  //     @color-in 14px,
+  //     @background-color 14px,
+  //     @background-color 17px,
+  //     @color-out 17px,
+  //     @color-out @border
+  //   );
+  // }
+  .inlineCenter{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stateIconColor(@color-in, @color-out){
+    .outer{
+      display: inline-flex;
+      border: 1px solid @color-out;
+      border-radius: 50%;
+      transform: scale(0.5);
+    }
+    .middle{
+      margin: 3px;
+      display: inline-flex;
+      border: 2px solid @color-in;
+      border-radius: 50%;
+    }
+    .inner{
+      margin: 4px;
+      display: inline-flex;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: @color-in;
+    }
+  }
+
+  .loadingText(@width, @height, @posi){
+    @left: flex-start;
+    @center: center;
+    @right: flex-end;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: @@posi;
+    .text{
+      display: inline-flex;
+      width: @width;
+      height: @height;
+      border-radius: 4px;
+      background-color: @loading-content-bg;
+      color: @loading-content-bg !important;
+      overflow: hidden;
+    }
+  }
+
+  display: inline-flex;
+  justify-content: center;
+
+  &.loading{
+    .content{
+      position: relative;
+      background-color: @loading-bg;
+      background: @loading-bg;
+      &::after{
+        // display: none;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0) 45%,
+          rgba(255, 255, 255, 0.4) 50%,
+          rgba(255, 255, 255, 0) 55%);
+        background-size: 200% 100%;
+        background-position-x: 120%;
+        animation: 1s loading ease-in-out infinite;
+      }
+      .top{
+        .name{
+          .loadingText(48px, 22px, 'center');
+        }
+        .stateWrapper{
+          .bgRight{
+            .stateIcon{
+              display: none;
+            }
+            .loadingText(72px, 22px, 'right');
+          }
+        }
+      }
+      .bottom{
+        .coinIconWrapper{
+          .border{
+            border-color: @loading-content-bg;
+            background: @loading-content-bg;
+            .icon{
+             display: none
+            }
+          }
+        }
+        .profile{
+          .amount{
+            .loadingText(132px, 28px, 'right');
+          }
+          .time{
+            .loadingText(156px, 20px, 'right')
+          }
+        }
+      }
+    }
+  }
+
+  .content{
+    margin: 26px 0px;
+    color: #fff;
+    width: 292px;
+    box-sizing: border-box;
+    background: linear-gradient(
+      278.16deg,
+    rgba(255, 42, 109, 0.1) 0.94%,
+    rgba(160, 126, 255, 0.1) 51.22%,
+    rgba(61, 255, 255, 0.1) 98.25%);
+    .top{
+      display: flex;
+      height: 32px;
+      line-height: 32px;
+      .name{
+        position: relative;
+        padding-right: 10px;
+        width: 116px;
+        height: 32px;
+        border-left: 1px solid transparent;
+        border-top: 1px solid transparent;
+        border-radius: 10px 0 0 0;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        &::after{
+          content: '';
+          position: absolute;
+          top: -1px;
+          right: -13px;
+          width: 10px;
+          height: 15px;
+          border-top: 1px solid transparent;
+          border-right: 2px solid transparent;
+          border-radius: 0px 8px 0px 0px;
+          transform: skewX(30deg);
+        }
+      }
+      .stateWrapper{
+        position: relative;
+        flex: 1;
+        height: 32px;
+        font-size: 18px;
+        font-weight: 700;
+        &::after{
+          content: '';
+          position: absolute;
+          left: 21px;
+          bottom: 1px;
+          width: 18px;
+          height: 16px;
+          border-left: 2px solid transparent;
+          border-bottom: 1px solid transparent;
+          border-radius: 0px 0px 0px 8px;
+          transform: skewX(30deg);
+          background-color: @background-color;
+        }
+        .bgLeft{
+          position: absolute;
+          left: 12px;
+          top: -1px;
+          width: 28px;
+          height: 16px;
+          transform: skewX(30deg);
+          background-color: @background-color;
+        }
+        .bgRight{
+          position: absolute;
+          right: 0px;
+          top: -1px;
+          width: 140px;
+          height: 32px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: flex-end;
+          background-color: @background-color;
+          &.active{
+            .stateIcon{
+              .stateIconColor(rgba(118, 252, 179, 1), rgba(118, 252, 179, 0.5));
+            }
+            .text{
+              margin-right: 14px;
+              color: rgba(118, 252, 179, 1);
+            }
+          }
+          &.terminated{
+            .stateIcon{
+              .stateIconColor(rgba(255, 0, 122, 1), rgba(255, 0, 122, 0.5));
+            }
+            .text{
+              margin-right: 14px;
+              color: rgba(255, 0, 122, 1);
+            }
+          }
+          &.suspended{
+            .stateIcon{
+              .stateIconColor(rgba(255, 229, 0, 1), rgba(255, 229, 0, 0.5));
+            }
+            .text{
+              margin-right: 14px;
+              color: rgba(255, 229, 0, 1);
+            }
+          }
+        }
+      }
+    }
+    .bottom{
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 290px;
+      height: 106px;
+      border: 1px solid transparent;
+      border-top: none;
+      border-radius: 0px 10px 10px 10px;
+      &::after{
+        content: '';
+        position: absolute;
+        right: -1px;
+        top: -1px;
+        width: 135px;
+        height: 10px;
+        border-top: 1px solid transparent;
+        border-right: 1px solid transparent;
+        border-radius: 0 10px 0 0;
+      }
+      .coinIconWrapper{
+        .inlineCenter();
+        .border{
+          .inlineCenter();
+          margin: 0px 16px;
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          background: linear-gradient(278.16deg, #FF2A6D 0.94%, #A07EFF 51.22%, #3DFFFF 98.25%);
+          opacity: 0.8;
+          .icon{
+            .inlineCenter();
+            width: 56px;
+            height: 56px;
+            border: 2px solid @background-color;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #333;
+            .img{
+              // width: 48px;
+              // height: 48px;
+              // border-radius: 50%;
+              // border: 4px dotted #000;
+              // overflow: hidden;
+            }
+          }
+        }
+      }
+      .profile{
+        display: inline-flex;
+        align-items: flex-end;
+        flex: 1;
+        margin-right: 14px;
+        flex-direction: column;
+        color: #fff;
+        .amount{
+          margin-bottom: 14px;
+          font-size: 22px;
+          line-height: 24px;
+          font-weight: 500;
+        }
+        .time{
+          margin-bottom: 14px;
+          font-size: 13px;
+          font-weight: 500;
+          line-height: 24px;
+        }
+      }
+    }
+    &:hover{
+      .top{
+        .name{
+          border-color: @hover-border-color;
+          &::after{
+            border-color: @hover-border-color;
+          }
+        }
+        .stateWrapper{
+          &::after{
+            left: 19px;
+            bottom: 0px;
+            width: 19px;
+            height: 17px;
+            border-color: @hover-border-color;
+          }
+        }
+      }
+      .bottom{
+        border-color: @hover-border-color;
+        &::after{
+          border-color: @hover-border-color;
+        }
+      }
+    }
+  }
+}
+
+@keyframes loading{
+  to {
+    background-position-x: -20%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .coinContainer{
+    width: 25%;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .coinContainer{
+    width: 33.333%;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+  .coinContainer{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .coinContainer{
+    width: 100%;
+  }
+}
